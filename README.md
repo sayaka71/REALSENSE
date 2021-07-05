@@ -1,30 +1,42 @@
+<!-- PROJECT LOGO -->
+<br />
+<p align="center">
+  <a href="https://www.intelrealsense.com/lidar-camera-l515/">
+    <img src="https://avatars.githubusercontent.com/u/14095512?s=280&v=4" alt="Logo" width="150" height="150">
+  </a>
+  
 # REALSENSE
-REALSENSE L515
+Code for [`REALSENSE L515`](https://www.intelrealsense.com/lidar-camera-l515/)
 
 ## Table of Contents
 - [Code](#code)
 - [Requirements](#requirements)
 
 ## Code
-- merge_PLY.py: merge 4 ply files
-- read_bag.py: `python read_bag.py -i "../BAG/<bag file>"`
-- viewer_3D.py: [`filter option`](https://github.com/IntelRealSense/librealsense/blob/jupyter/notebooks/depth_filters.ipynb) can be used.
->**Note**
-OpenCV and Numpy Point cloud Software Renderer
-This sample is mostly for demonstration and educational purposes.
-It really doesn't offer the quality or performance that can be
-achieved with hardware acceleration.
+- **merge_PLY.py**: merge 4 ply files
+- **read_bag.py**: read bag file
+  ```sh
+  python read_bag.py -i "../BAG/<bag file>"
+  ```
+- **viewer_3D.py**: 3D viewer that can capture ply files ([`filter option`](https://github.com/IntelRealSense/librealsense/blob/jupyter/notebooks/depth_filters.ipynb) can be used.)
 
-> Usage:`[p]     Pause, [r]     Reset View, [d]     Cycle through decimation values, [z]     Toggle point scaling, [c]     Toggle color source, [s]     Save PNG (./out.png), [e]     Export points to ply (./out.ply), [q\ESC] Quit`
+  > **Usage**:
+  ```
+  [p]     Pause
+  [r]     Reset View 
+  [d]     Cycle through decimation values
+  [z]     Toggle point scaling
+  [c]     Toggle color source
+  [s]     Save PNG (./out.png)
+  [e]     Export points to ply (./out.ply)
+  [q\ESC] Quit
+  ```
 ### Example code
 > For a list of full code examples see the [BAG_PY](./BAG_PY) folder
 ```python
-# -*- coding: utf-8 -*-
-# https://github.com/IntelRealSense/librealsense/blob/master/wrappers/python/examples/read_bag_example.py
 #####################################################
 ##               Read bag from file                ##
 #####################################################
-# command: python read_BAG.py -i "table.bag"
 
 # First import library
 import pyrealsense2 as rs
@@ -105,10 +117,11 @@ finally:
 
 
 ## Requirements
- packages in environment at C:\Users\brunk\Anaconda3\envs\open3D-070:
-Name                    Version                   Build  Channel
-- open3d-python             0.7.0.0                  pypi_0    pypi
-- opencv-python             4.2.0.34                 pypi_0    pypi
-- pyrealsense2              2.48.0.3381              pypi_0    pypi
-- python                    3.6.10               h9f7ef89_1
+ packages in environment: 
+| Name |  Version | Build  Channel  |
+| :---: |  :---:  |      :---:      |
+|open3d-python|             0.7.0.0                  |pypi_0    pypi|
+|opencv-python|             4.2.0.34                 |pypi_0    pypi|
+|pyrealsense2|              2.48.0.3381              |pypi_0    pypi|
+|python|                    3.6.10               |h9f7ef89_1|
 
