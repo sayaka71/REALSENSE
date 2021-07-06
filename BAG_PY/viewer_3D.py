@@ -101,7 +101,7 @@ colorizer = rs.colorizer()
 # Distance threshold
 thr_filter = rs.threshold_filter()
 thr_filter.set_option(rs.option.min_distance, 0.0)
-thr_filter.set_option(rs.option.max_distance, 0.97)
+thr_filter.set_option(rs.option.max_distance, 0.8)
 
 # Spatial filter
 spatial = rs.spatial_filter()

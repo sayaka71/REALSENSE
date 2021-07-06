@@ -16,9 +16,9 @@ GET_GTG = py3d.get_information_matrix_from_point_clouds
 
 def register(pcd1, pcd2, size):
     # ペアの点群を位置合わせ
-
-    kdt_n = py3d.KDTreeSearchParamHybrid(radius=size, max_nn=50)
-    kdt_f = py3d.KDTreeSearchParamHybrid(radius=size * 10, max_nn=50)
+    print("::Register pair pcds")
+    kdt_n = py3d.KDTreeSearchParamHybrid(radius=0.1, max_nn=30)
+    kdt_f = py3d.KDTreeSearchParamHybrid(radius=0.1 * 5, max_nn=30)
 
     # ダウンサンプリング
     pcd1_d = py3d.voxel_down_sample(pcd1, size)
@@ -27,6 +27,7 @@ def register(pcd1, pcd2, size):
     py3d.estimate_normals(pcd2_d, kdt_n)
 
     # 特徴量計算
+    print("::FPFH")
     pcd1_f = FPFH(pcd1_d, kdt_f)
     pcd2_f = FPFH(pcd2_d, kdt_f)
 
@@ -37,9 +38,10 @@ def register(pcd1, pcd2, size):
     est_ptp = py3d.TransformationEstimationPointToPoint()
     est_ptpln = py3d.TransformationEstimationPointToPlane()
 
-    criteria = py3d.RANSACConvergenceCriteria(max_iteration=400000,
+    criteria = py3d.RANSACConvergenceCriteria(max_iteration=1000,
                                               max_validation=500)
     # RANSACマッチング
+    print("::RANSAC")
     result1 = RANSAC(pcd1_d, pcd2_d,
                      pcd1_f, pcd2_f,
                      max_correspondence_distance=size * 2,
@@ -48,7 +50,9 @@ def register(pcd1, pcd2, size):
                      checkers=checker,
                      criteria=criteria)
     # ICPで微修正
-    result2 = ICP(pcd1, pcd2, size, result1.transformation, est_ptpln)
+    print("::ICP")
+    threshold = size
+    result2 = ICP(pcd1, pcd2, threshold, result1.transformation, est_ptpln)
 
     return result2.transformation
 
@@ -93,6 +97,7 @@ def align_pcds(pcds, size):
     pose_graph.nodes.append(py3d.PoseGraphNode(accum_pose))
 
     n_pcds = len(pcds)
+    print("::Align pcds")
     for source_id in range(n_pcds):
         for target_id in range(source_id + 1, n_pcds):
             source = pcds[source_id]
@@ -121,12 +126,14 @@ def align_pcds(pcds, size):
              reference_node=0)
 
     # 最適化
+    print("::Optimization")
     py3d.global_optimization(pose_graph,
                             method=solver,
                             criteria=criteria,
                             option=option)
 
     # 推定した姿勢で点群を変換
+    print("::Transform pcds")
     for pcd_id in range(n_pcds):
         trans = pose_graph.nodes[pcd_id].pose
         pcds[pcd_id].transform(trans)
@@ -143,10 +150,13 @@ pcds = load_pcds(["../PLY/table0.ply",
 py3d.draw_geometries(pcds, "input pcds")
 
 size = np.abs((pcds[0].get_max_bound() - pcds[0].get_min_bound())).max() / 30
+print(size)
+
 
 pcd_aligned = align_pcds(pcds, size)
 py3d.draw_geometries(pcd_aligned, "aligned")
 
+print("::Merge pcds")
 pcd_merge = merge(pcd_aligned)
 add_color_normal(pcd_merge)
 py3d.io.write_point_cloud("combined_all.pcd", pcd_merge)
