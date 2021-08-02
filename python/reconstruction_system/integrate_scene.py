@@ -7,7 +7,6 @@
 import numpy as np
 import math
 import sys
-import os
 import open3d as o3d
 sys.path.append("../utility")
 from file import *

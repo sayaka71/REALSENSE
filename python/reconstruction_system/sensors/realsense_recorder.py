@@ -191,7 +191,8 @@ if __name__ == "__main__":
             key = cv2.waitKey(1)
 
             # if 'esc' button pressed, escape loop and exit program
-            if key == 27:
+            if key in (27, ord("q")):
+            # if key == 27:
                 cv2.destroyAllWindows()
                 break
     finally:

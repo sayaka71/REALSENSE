@@ -7,19 +7,16 @@
 import open3d as o3d
 import os, sys
 sys.path.append("../utility")
-from file import *
 from common import *
 sys.path.append("../geometry")
 from trajectory_io import *
 from shutil import copyfile
-sys.path.append("../reconstruction_system/sensors")
-from realsense_recorder import *
 
 if __name__ == "__main__":
     o3d.utility.set_verbosity_level(o3d.utility.VerbosityLevel.Debug)
 
-    path = "../reconstruction_system/dataset/realsense" # [path_to_reconstruction_system_output]
-    out_path = "../reconstruction_system/dataset/sampling"
+    path = "[path_to_reconstruction_system_output]"
+    out_path = "[path_to_sampled_frames_are_located]"
     make_clean_folder(out_path)
     make_clean_folder(os.path.join(out_path, "depth/"))
     make_clean_folder(os.path.join(out_path, "image/"))
@@ -28,7 +25,7 @@ if __name__ == "__main__":
 
     depth_image_path = get_file_list(os.path.join(path, "depth/"),
                                      extension=".png")
-    color_image_path = get_file_list(os.path.join(path, "color/"),
+    color_image_path = get_file_list(os.path.join(path, "image/"),
                                      extension=".jpg")
     pose_graph_global = o3d.io.read_pose_graph(
         os.path.join(path, template_global_posegraph_optimized))
