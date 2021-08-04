@@ -108,7 +108,7 @@ decimate.set_option(rs.option.filter_magnitude, 2 ** state.decimate)
 # Distance threshold
 thr_filter = rs.threshold_filter()
 thr_filter.set_option(rs.option.min_distance, 0.1)
-thr_filter.set_option(rs.option.max_distance, 0.8)
+thr_filter.set_option(rs.option.max_distance, 0.716)
 
 # Spatial filter
 spatial = rs.spatial_filter()

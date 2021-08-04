@@ -100,8 +100,8 @@ colorizer = rs.colorizer()
 
 # Distance threshold
 thr_filter = rs.threshold_filter()
-thr_filter.set_option(rs.option.min_distance, 0.0)
-thr_filter.set_option(rs.option.max_distance, 0.8)
+thr_filter.set_option(rs.option.min_distance, 0.1)
+thr_filter.set_option(rs.option.max_distance, 0.9)
 
 # Spatial filter
 spatial = rs.spatial_filter()
@@ -294,9 +294,10 @@ while True:
         depth_frame = frames.get_depth_frame()
         color_frame = frames.get_color_frame()
 
+        # filter
         depth_frame = decimate.process(depth_frame)
-        depth_frame = thr_filter.process(depth_frame)
         depth_frame = spatial.process(depth_frame)
+        depth_frame = thr_filter.process(depth_frame)
 
         # Grab new intrinsics (may be changed by decimation)
         depth_intrinsics = rs.video_stream_profile(
