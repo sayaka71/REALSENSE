@@ -121,8 +121,13 @@ finally:
  packages in environment: 
 | Name |  Version | Build  Channel  |
 | :---: |  :---:  |      :---:      |
-|open3d-python|             0.7.0.0                  |pypi_0    pypi|
+|open3d-python|             0.7.0.0 or 0.13.0                 |pypi_0    pypi|
 |opencv-python|             4.2.0.34                 |pypi_0    pypi|
 |pyrealsense2|              2.48.0.3381              |pypi_0    pypi|
 |python|                    3.6.10               |h9f7ef89_1|
 
+> **NOTE**
+> |  Folder | OPEN3D Version |
+> |:-------:|:--------------:|
+> | BAG_PLY |      0.7.0     | 
+> |  python |      0.13.0    |
