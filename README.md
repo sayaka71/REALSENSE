@@ -18,7 +18,8 @@ Code for [`REALSENSE L515`](https://www.intelrealsense.com/lidar-camera-l515/)
   ```sh
   python read_bag.py -i "../BAG/<bag file>"
   ```
-- **viewer_3D.py**: 3D viewer that can capture ply files ([`filter option`](https://github.com/IntelRealSense/librealsense/blob/jupyter/notebooks/depth_filters.ipynb) can be used.)
+- **viewer_3D.py**: 3D viewer that can capture ply files ([`filter option`](https://github.com/IntelRealSense/librealsense/blob/jupyter/notebooks/depth_filters.ipynb) )
+- **export_ply_files.py**: 3D viewer that can capture ply files with **Vertex Normals**
 
   > **Usage**:
   ```
