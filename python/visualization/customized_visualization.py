@@ -83,12 +83,25 @@ def custom_draw_geometry_with_key_callback(pcd):
     key_to_callback[ord(".")] = capture_image
     o3d.visualization.draw_geometries_with_key_callbacks([pcd], key_to_callback)
 
+def demo_crop_geometry():
+    print("Demo for manual geometry cropping")
+    print(
+        "1) Press 'Y' twice to align geometry with negative direction of y-axis"
+    )
+    print("2) Press 'K' to lock screen and to switch to selection mode")
+    print("3) Drag for rectangle selection,")
+    print("   or use ctrl + left click for polygon selection")
+    print("4) Press 'C' to get a selected geometry and to save it")
+    print("5) Press 'F' to switch to freeview mode")
+    pcd = o3d.io.read_point_cloud(f"{data_path}cropped_1.ply")
+    o3d.visualization.draw_geometries_with_editing([pcd])
+
 
 def custom_draw_geometry_with_camera_trajectory(pcd):
     custom_draw_geometry_with_camera_trajectory.index = -1
     custom_draw_geometry_with_camera_trajectory.trajectory =\
             o3d.io.read_pinhole_camera_trajectory(
-                    "../../test_data/camera_trajectory.json")
+                    f"{data_path}scene/trajectory.log")
     custom_draw_geometry_with_camera_trajectory.vis = o3d.visualization.Visualizer(
     )
     if not os.path.exists("../../test_data/image/"):
@@ -135,7 +148,8 @@ def custom_draw_geometry_with_camera_trajectory(pcd):
 
 
 if __name__ == "__main__":
-    pcd = o3d.io.read_point_cloud("../../test_data/fragment.ply")
+    data_path = "../reconstruction_system/dataset/realsense/"
+    pcd = o3d.io.read_point_cloud(f"{data_path}cropped_1.ply")
 
     print("1. Customized visualization to mimic DrawGeometry")
     custom_draw_geometry(pcd)
